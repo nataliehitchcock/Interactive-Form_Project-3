@@ -37,6 +37,8 @@ let isCreditCardValid = false;
 let isZipValid = false;
 let isCvvValid = false;
 
+//Job Role Section//
+
 // Hides "other" job text field upon load
 $otherJobTitle.hide();
 
@@ -54,14 +56,15 @@ $(function() {
     $selectJob.prop("disabled", true);
 });
 
-// Hides the shirt color option upon load
-$tshirtColor.hide();
-
 // T-shirt Section//
 
-// If the user selects "Theme - JS Puns"- the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."
-// If the user selects "Theme - I ♥ JS" - the color menu should only display "Tomato," "Steel Blue," and "Dim Grey."
+// If the user selects "Theme - JS Puns"- the color menu should display the following: "Cornflower Blue," "Dark Slate Grey," and "Gold."
+// If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
+
+// Color drop down menu is hidden until a design is selected.
+$tshirtColor.hide();
+
 $($tshirtDesign).change(function() {
   if ($tshirtDesign.val() === "js puns") {
     $tshirtColor.show();
@@ -82,14 +85,13 @@ $($tshirtDesign).change(function() {
   }
 });
 
-//Disables "Select Theme" in the select menu
 $(function() {
     $selectTheme.prop("disabled", true);
 });
 
 //Register for Activities Section//
 
-// JavaScript Frameworks Workshop
+// JavaScript Frameworks 
 $frameworks.change(function() {
     if($(this).is(':checked')){
       $express.prop('disabled', true);
@@ -98,7 +100,7 @@ $frameworks.change(function() {
     }
   });
   
-  // JavaScript Libraries Workshop
+  // JavaScript Libraries 
   $jsLibs.change(function() {
     if($(this).is(':checked')){
       $node.prop('disabled', true);
@@ -107,7 +109,7 @@ $frameworks.change(function() {
     }
   });
   
-  // Express Workshop
+  // Express 
   $express.change(function() {
     if($(this).is(':checked')){
       $frameworks.prop('disabled', true);
@@ -116,7 +118,7 @@ $frameworks.change(function() {
     }
   });
   
-  // Node.js Workshop
+  // Node.js 
   $node.change(function() {
     if($(this).is(':checked')){
       $jsLibs.prop('disabled', true);
@@ -151,7 +153,7 @@ $('input:checkbox').on('change', function() {
     }
   });
 
-  //Credit Card Section//
+  //Credit Card/Payment Section//
 
   //Hides Paypal and Bitcoin
   $paypal.hide();
@@ -160,7 +162,7 @@ $('input:checkbox').on('change', function() {
   //Allows for the Credit Card payment option to be selected by default
   $paymentOption[0].selectedIndex = 1;
 
-  //This displays payment sections based on payment option chosen in the "Select" menu
+  //This displays payment sections based on payment option chosen in "Select" menu
   $($paymentOption).change(function() {
     if ($(this).val() === "credit card") {
       $cardInfo.show();
