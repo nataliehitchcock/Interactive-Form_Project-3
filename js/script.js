@@ -18,7 +18,8 @@ const $roles = ('.roles');
 const $cardInfo = $('#credit-card');
 const $paymentOption = $('#payment');
 const $creditOption = $('#credit');
-const $paypaloption = $('#paypalOption');
+const $creditCardOption = $('#payment option[value="Credit Card"]').text();
+const $paypalOption = $('#paypalOption');
 const $bitcoinOption = $('#bitcoinOption');
 const $paypal = $('#paypal');
 const $bitcoin = $('#bitcoin');
@@ -224,20 +225,34 @@ $eMail.focusout(function(e) {
     });
   
 //If either Bitcoin or Paypal are selected, form submission is still allowed
-    $($paymentOption).change(function() {
-      if ($(event.target).val()=== 'Credit Card');{
-        $('#credit-card').show();
-        $('#paypal').hide();
-        $('#bitcoin').hide();}
-      if ($(event.target).val()=== 'Paypal');{
-        $('#credit-card').hide();
-        $('#paypal').show();
-        $('#bitcoin').hide();} 
-      if ($(event.target).val()=== 'Bitcoin');{
-          $('#credit-card').hide();
-          $('#paypal').hide();
-          $('#bitcoin').show();}    
-        });
+$paymentOption.change( (event) => {
+  const option = event.target;
+  const $optionValue = $(option).prop("value");
+
+  //Declaring payment option variables for if statements.
+  const $paypalOption = $('#payment option[value="PayPal"]').text();
+  const $bitcoinOption = $('#payment option[value="Bitcoin"]').text();
+  const $creditCardOption = $('#payment option[value="Credit Card"]').text();
+  
+  if ($optionValue === $paypalOption) {
+      $creditCardOption.hide();
+      $bitcoinOption.hide();
+      $paypalOp.show();
+  }
+
+  if ($optionValue === $bitcoinOption) {
+      $creditCardOption.hide();
+      $paypalOption.hide();
+      $bitcoinOption.show();
+  }
+
+  if ($optionValue === $creditCardOption) {
+      $paypalOption.hide();
+      $bitcoinOption.hide();
+      $creditCardOption.show();
+  }
+
+});
 
     //Zip code should only be 5 digits
     $zipCode.focusout(function(e) {
