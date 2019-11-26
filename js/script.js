@@ -39,17 +39,24 @@ let isCvvValid = false;
 
 //Job Role Section//
 
-// Hides "other" job text field upon load
+//This sets the curser to the first input on page load
+window.onload = () => {
+  $name.focus();
+}
+// Hidden items upon page load (Other Job Title, T-Shirt Color, Paypal and Bitcoin)
 $otherJobTitle.hide();
+$tshirtColor.hide();
+ $paypal.hide();
+ $bitcoin.hide();
 
 // Text field that will be revealed when the "other" option is selected from the "Job Role" drop down menu.
-$($jobTitle).change(function() {
-  if ($jobTitle.val() === "other") {
-    $otherJobTitle.show();
-    } else {
-    $otherJobTitle.hide();
-  }
-});
+$('#userTitle').on('change', function(){
+  if($('#userTitle').val() === 'other'){
+   $('#other-title').show();
+  } else {
+     $('#other-title').hide();
+    }
+ })
 
 // Disables "Select Job Role" in the select menu
 $(function() {
@@ -61,9 +68,6 @@ $(function() {
 // If the user selects "Theme - JS Puns"- the color menu should display the following: "Cornflower Blue," "Dark Slate Grey," and "Gold."
 // If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
-
-// Color drop down menu is hidden until a design is selected.
-$tshirtColor.hide();
 
 $($tshirtDesign).change(function() {
   if ($tshirtDesign.val() === "js puns") {
@@ -155,10 +159,6 @@ $('input:checkbox').on('change', function() {
 
   //Credit Card/Payment Section//
 
-  //Hides Paypal and Bitcoin
-  $paypal.hide();
-  $bitcoin.hide();
-
   //Allows for the Credit Card payment option to be selected by default
   $paymentOption[0].selectedIndex = 1;
 
@@ -225,12 +225,19 @@ $eMail.focusout(function(e) {
   
 //If either Bitcoin or Paypal are selected, form submission is still allowed
     $($paymentOption).change(function() {
-      if ($paymentOption.val() == "paypal" || "bitcoin") {
-        isCreditCardValid = true;
-        isZipValid = true;
-        isCvvValid = true;
-      } 
-    });
+      if ($(event.target).val()=== 'Credit Card');{
+        $('#credit-card').show();
+        $('#paypal').hide();
+        $('#bitcoin').hide();}
+      if ($(event.target).val()=== 'Paypal');{
+        $('#credit-card').hide();
+        $('#paypal').show();
+        $('#bitcoin').hide();} 
+      if ($(event.target).val()=== 'Bitcoin');{
+          $('#credit-card').hide();
+          $('#paypal').hide();
+          $('#bitcoin').show();}    
+        });
 
     //Zip code should only be 5 digits
     $zipCode.focusout(function(e) {
@@ -271,8 +278,8 @@ $eMail.focusout(function(e) {
     if (!isNameValid || !isEmailValid || !isCheckboxValid || !isCreditCardValid || !isZipValid || !isCvvValid) {
       e.preventDefault();
       if (!isNameValid) {$name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'})};
-      if (!isEmailValid) {$eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email'})};
-      if (!isCreditCardValid) {$creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'})};
+      if (!isEmailValid) {$eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email address'})};
+      if (!isCreditCardValid) {$creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Credit Card Number needs to be 13-16 digits'})};
       if (!isZipValid) {$zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'})};
       if (!isCvvValid) {$cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'})};
     }
