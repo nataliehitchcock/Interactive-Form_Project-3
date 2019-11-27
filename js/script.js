@@ -1,296 +1,279 @@
-//Setting up Variables//
-const $jobTitle = $("#userTitle");
-const $otherJobTitle = $("#other-title");
-const $tshirtDesign = $("#design");
-const $tshirtColor = $("#colors-js-puns");
-const $classes = $("#classes");
-const $selectJob = $('#select-job');
-const $selectTheme = $('#select-theme');
-const $activities = $(".activities");
-const $frameworks = $('input[name="js-frameworks"]');
-const $jsLibs = $('input[name="js-libs"]');
-const $express = $('input[name="express"]');
-const $node = $('input[name="node"]');
-const $buildTools = $('input[name="build-tools"]');
-const $npm = $('input[name="npm"]');
-const $roles = ('.roles');
-const $cardInfo = $('#credit-card');
-const $creditCardOption = $('#payment option[value="Credit Card"]').text();
-const $paymentOption = $('#payment');
-const $creditOption = $('#credit');
-const $paypalOption = $('#paypalOption');
-const $bitcoinOption = $('#bitcoinOption');
-const $paypal = $('#paypal');
-const $bitcoin = $('#bitcoin');
-const $selectMethod = $('#selectMethod');
-const $nameField = $('#name');
-const $eMail = $('#mail');
-const $creditCardNum = $('#cc-num');
-const $zipCode = $('#zip');
-const $cvv = $('#cvv');
-const $form = $('form')
-let totalCost = 0;
+//Setting up Variables//
 
-const totalCostDiv = document.createElement('div');
-const emailHelperRealTimeSpan = document.createElement('span');
-const helperSpanName = document.createElement('span');
-const helperSpanEmailBlank = document.createElement('span');
-const helperSpanEmailFormat = document.createElement('span');
-const helperSpanOneActivity = document.createElement('span');
-const helperSpanCCNumber = document.createElement('span');
-const helperSpanCCZipCode = document.createElement('span');
-const helperSpanCCcvv = document.createElement('span');
+const $jobTitle = $("#userTitle");
+const $otherJobTitle = $("#other-title");
+const $tshirtDesign = $("#design");
+const $tshirtColor = $("#colors-js-puns");
+const $classes = $("#classes");
+const $selectJob = $('#select-job');
+const $selectTheme = $('#select-theme');
+const $activities = $(".activities");
+const $frameworks = $('input[name="js-frameworks"]');
+const $jsLibs = $('input[name="js-libs"]');
+const $express = $('input[name="express"]');
+const $node = $('input[name="node"]');
+const $buildTools = $('input[name="build-tools"]');
+const $npm = $('input[name="npm"]');
+const $roles = ('.roles');
+const $cardInfo = $('#credit-card');
+const $paymentOption = $('#payment');
+const $creditOption = $('#credit');
+const $paypaloption = $('#paypalOption');
+const $bitcoinOption = $('#bitcoinOption');
+const $paypal = $('#paypal');
+const $bitcoin = $('#bitcoin');
+const $selectMethod = $('#selectMethod');
+const $name = $('#name');
+const $eMail = $('#mail');
+const $creditCardNum = $('#cc-num');
+const $zipCode = $('#zip');
+const $cvv = $('#cvv');
+const $submit = $('#submitButton');
+let isNameValid = false;
+let isEmailValid = false;
+let isJobTitleValid = false;
+let isCheckboxValid = false;
+let isCreditCardValid = false;
+let isZipValid = false;
+let isCvvValid = false;
 
-//Adding classes to the following DOM elements
-$(totalCostDiv).addClass('total-cost');
-$(emailHelperRealTimeSpan).addClass('helperText');
-$(helperSpanName).addClass('helperText');
-$(helperSpanEmailBlank).addClass('helperText');
-$(helperSpanEmailFormat).addClass('helperText');
-$(helperSpanOneActivity).addClass('helperText');
-$(helperSpanCCNumber).addClass('helperText');
-$(helperSpanCCZipCode).addClass('helperText');
-$(helperSpanCCcvv).addClass('helperText');
+//Job Role Section//
 
-//These items are hidden upon page load
+//This sets the curser to the first input on page load
+window.onload = () => {
+  $name.focus();
+}
+// Hidden items upon page load (Other Job Title, T-Shirt Color, Paypal and Bitcoin)
 $otherJobTitle.hide();
 $tshirtColor.hide();
-$paypalOption.hide();
-$bitcoinOption.hide();
+ $paypal.hide();
+ $bitcoin.hide();
 
-//Allows the cursor to be placed in the "Name" field upon page load
-window.onload = () => {
-  $nameField.focus();
-}
-//Job Role Section//
-
-//Shows "Your Job Role" when the "Other" selection is made for Job Titles
-$jobTitle.change( () => {
-  const option = $jobTitle.find(':selected').text();
-  if (option === 'Other') {
-      $otherJobSection.show();
-  }
+// Text field that will be revealed when the "other" option is selected from the "Job Role" drop down menu.
+$($jobTitle).change(function() {
+  if ($jobTitle.val() === "other") {
+    $otherJobTitle.show();
+    } else {
+    $otherJobTitle.hide();
+  }
 });
 
-//T-Shirt Section//
-const $colorTomato = $('#color option[value="tomato"]');
-    const $colorSteelBlue = $('#color option[value="steelblue"]');
-    const $colorDimGrey = $('#color option[value="dimgrey"]');
-    const $colorCornflowerBlue = $('#color option[value="cornflowerblue"]');
-    const $colorDarkSlateGrey = $('#color option[value="darkslategrey"]');
-    const $colorGold = $('#color option[value="gold"]');
-    const $firstSelect = $('#color option:first');
-    const $secondSelect = $('#color option[value="tomato"]');
-    
-    if (option === 'Theme - JS Puns') {
-        $firstSelect.prop('selected', true);
-        //When JS Puns is selected it should only show the colors: "Cornflower Blue," "Dark Slate Grey," and "Gold."
-        $colorTomato.attr('hidden', true).attr('disabled', true);
-        $colorSteelBlue.attr('hidden', true).attr('disabled', true);
-        $colorDimGrey.attr('hidden', true).attr('disabled', true);
-        $colorCornflowerBlue.attr('hidden', false).attr('disabled', false);
-        $colorDarkSlateGrey.attr('hidden', false).attr('disabled', false);
-        $colorGold.attr('hidden', false).attr('disabled', false);
-        $colorOptions.show();
-    } else if (option === 'Theme - I ♥ JS') {
-        $secondSelect.prop('selected', true);
-        //When I heart JS is selected it should only show the colors: "Tomato," "Steel Blue," and "Dim Grey."
-        $colorCornflowerBlue.attr('hidden', true).attr('disabled', true);
-        $colorDarkSlateGrey.attr('hidden', true).attr('disabled', true);
-        $colorGold.attr('hidden', true).attr('disabled', true);
-        $colorTomato.attr('hidden', false).attr('disabled', false);
-        $colorSteelBlue.attr('hidden', false).attr('disabled', false);
-        $colorDimGrey.attr('hidden', false).attr('disabled', false);
-        $colorOptions.show();
-    }
-
-    //Function Validation//
-
-    function isValidNameBlank(nameField){
-      if (nameField === '') {
-          return true;
-      } else  {
-          return false;
-      }
-  }
-  function isValidEmailBlank(emailField) {
-      if (emailField === '') {
-          return true;
-      } else {
-          return false;
-      }
-  }
-  function isValidEmail(emailField) {
-      return /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailField);
-  }
-  function isValidOneCheckbox(checkboxes) {
-      for (i = 0; i < checkboxes.length; i++) {
-          if (checkboxes[i].checked) {
-              return true;
-          } else {
-              return false;
-          }
-      }
-  }
-  function isValidCreditCardNumber(ccField) {
-  return  /^\d{13,16}$/.test(ccField);
-  }
-  function isValidCCZipcode(zipCodeField) {
-      return /^\d{5}$/.test(zipCodeField);
-  }
-  function isValidCvv(cvvField) {
-      return /^\d{3}$/.test(cvvField);
-  }
- 
-  //Activities Section//
-  
- //This does not allow the user to select multiple events for the same time slot
-$activities.change( (event) => {
-  const clicked = event.target;
-  const $clickedTime = $(clicked).attr("data-day-and-time");
-  const $clickedCost = parseInt($(clicked).attr("data-cost").replace("$", ""));
-
-  //If an activity is selected/unselected add/subtract from Total Cost
-  if (clicked.checked) {
-      totalCost += $clickedCost;
-      $activitiesSection.append($(totalCostDiv).text('Total Cost: $' + totalCost));
-  } else {
-      totalCost -= $clickedCost;
-      $activitiesSection.append($(totalCostDiv).text('Total Cost: $' + totalCost));
-  }
-//Disable the option for users to select multiple time slots for the same day
-for (let i = 0; i < $activities.length; i++) {
-  const currentCheckbox = $activities[i];
-  const currentCheckboxDayTime = $(currentCheckbox).attr("data-day-and-time");
-  if (currentCheckboxDayTime === $clickedTime && currentCheckbox !== clicked) {
-      if (clicked.checked) {
-          $(currentCheckbox).prop('disabled', true);
-      } else {
-          $(currentCheckbox).prop('disabled', false);
-      }
-  }
-}
-});
-//Payment Info/CC Section//
-$paymentOption.change( (event) => {
-  const option = event.target;
-  const $optionValue = $(option).prop("value");
-
-  //Payment Option Variables
-  const $paypalOption = $('#payment option[value="PayPal"]').text();
-  const $bitcoinOption = $('#payment option[value="Bitcoin"]').text();
-  const $creditOption = $('#payment option[value="Credit Card"]').text();
-  
-  if ($optionValue === $paypalOption) {
-      $creditOption.hide();
-      $bitcoinOption.hide();
-      $paypalOption.show();
-  }
-
-  if ($optionValue === $bitcoinOption) {
-      $creditOption.hide();
-      $paypalOption.hide();
-      $bitcoinOption.show();
-  }
-
-  if ($optionValue === $creditOption) {
-      $paypalOption.hide();
-      $bitcoinOption.hide();
-      $creditOption.show();
-  }
-
+// Disables "Select Job Role" in the select menu
+$(function() {
+    $selectJob.prop("disabled", true);
 });
 
-//Prompts user that email needs to be in the correct format (ex: dave@teamtreehouse.com)
+// T-shirt Section//
 
-$eMail.on('input', (event) => {
-  const text = event.target.value;
-  if (isValidEmail(text)) {
-      $eMail.after($(emailHelperRealTimeSpan).text(''));
+// If the user selects "Theme - JS Puns"- the color menu should display the following: "Cornflower Blue," "Dark Slate Grey," and "Gold."
+// If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
+// When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
 
-  } else {
-      $eMail.after($(emailHelperRealTimeSpan).text('Email field must be in valid email format. Example: "name@email.com"'));
-      $eMail.after($(helperSpanEmailBlank).text(''));
-      $eMail.after($(helperSpanEmailFormat).text(''));
-  }
+$($tshirtDesign).change(function() {
+  if ($tshirtDesign.val() === "js puns") {
+    $tshirtColor.show();
+    $('#color option[value="cornflowerblue"]').show();
+    $('#color option[value="darkslategrey"]').show();
+    $('#color option[value="gold"]').show();
+    $('#color option[value="tomato"]').hide();
+    $('#color option[value="steelblue"]').hide();
+    $('#color option[value="dimgrey"]').hide();
+  } else if ($tshirtDesign.val() === "heart js") {
+    $tshirtColor.show();
+    $('#color option[value="tomato"]').show();
+    $('#color option[value="steelblue"]').show();
+    $('#color option[value="dimgrey"]').show();
+    $('#color option[value="cornflowerblue"]').hide();
+    $('#color option[value="darkslategrey"]').hide();
+    $('#color option[value="gold"]').hide();
+  }
 });
 
-//Prompts user to enter their name
-$form.on('submit', (event) => {
-    
-  //If name field is blank prevent submit and show error message
-  if (isValidNameBlank($nameField.val())) {
-      event.preventDefault();
-      $nameField.after($(helperSpanName).text('Please enter your name.'));
-      $nameField.addClass('input-border-red');
-  } else {
-      $nameField.after($(helperSpanName).text(''));
-      $nameField.removeClass('input-border-red');
+$(function() {
+    $selectTheme.prop("disabled", true);
+});
 
+//Register for Activities Section//
 
-  }
+// JavaScript Frameworks 
+$frameworks.change(function() {
+    if($(this).is(':checked')){
+      $express.prop('disabled', true);
+    } else {
+      $express.prop('disabled', false);
+    }
+  });
+  
+  // JavaScript Libraries 
+  $jsLibs.change(function() {
+    if($(this).is(':checked')){
+      $node.prop('disabled', true);
+    } else {
+      $node.prop('disabled', false);
+    }
+  });
+  
+  // Express 
+  $express.change(function() {
+    if($(this).is(':checked')){
+      $frameworks.prop('disabled', true);
+    } else {
+      $frameworks.prop('disabled', false);
+    }
+  });
+  
+  // Node.js 
+  $node.change(function() {
+    if($(this).is(':checked')){
+      $jsLibs.prop('disabled', true);
+    } else {
+      $jsLibs.prop('disabled', false);
+    }
+  });
 
-// If email field is blank prevent submit and show error message 
-if (isValidEmailBlank($eMail.val())) {
-  event.preventDefault();
-  $eMail.after($(helperSpanEmailBlank).text('Email field cannot be blank.'));
-  $eMail.after($(emailHelperRealTimeSpan).text(''));
-  $eMail.addClass('input-border-red');
-} else if (!isValidEmailBlank($eMail.val()) && !isValidEmail($eMail.val())) {
-  event.preventDefault();
-  $eMail.after($(helperSpanEmailFormat).text('Email field must be in valid email format. Example: "name@email.com'));
-  $eMail.after($(emailHelperRealTimeSpan).text(''));
-  $eMail.addClass('input-border-red');        
-} else {
-  $eMail.after($(helperSpanEmailBlank).text(''));
-  $eMail.after($(helperSpanEmailFormat).text(''));
-  $eMail.removeClass('input-border-red');
-}
+//Created a new div to display total
+$activities.append('<br><div class="totalDiv"><label name="total-due" class="totalCost">Total: </label></div>');
+$activities.append('<br><div class="error"><font color="#ff0000">Please select an activity.</div>');
 
-//Prompts user to select an activity and if they don't show error message
-if (isValidOneCheckbox($activities)) {
-  $activities.append($(helperSpanOneActivity).text(''));
-} else {
-  event.preventDefault();
-  $activities.append($(helperSpanOneActivity).text('You must select at least one activity.'));
-}
+const $totalDiv = $(".totalDiv");
+const $totalCost = $(".totalCost");
+let $total = 0;
+const $error = $(".error");
 
-//Credit Card needs to be between 13-16 digits 
-if ($paymentOption.val() === $cardInfo) {
-//Credit Card format between 13 and 16 digits. If it doesn't match prevent submit 
-  if (isValidCreditCardNumber($creditCardNumberField.val())) {
-      $creditCardNumberField.after($(helperSpanCCNumber).text(''));
-      $creditCardNumberField.removeClass('input-border-red');
-  } else {
-      event.preventDefault();
-      $creditCardNumberField.after($(helperSpanCCNumber).text('Credit Card number must be between 13 and 16 digits.'));
-      $creditCardNumberField.addClass('input-border-red');
-  }
-   //Zipcode needs to be 5 digits. If it isn't prevent submit
-   if (isValidCCZipcode($zipCode.val())) {
-    $zipCode.after($(helperSpanCCZipCode).text(''));
-    $zipCode.removeClass('input-border-red');
-} else {
-    event.preventDefault();
-    $zipcode.after($(helperSpanCCZipCode).text('Zip Code must be 5 digits'));
-    $zipCode.addClass('input-border-red');
-}
+// Hide the div on load
+$totalDiv.hide();
+$error.hide();
 
- //CVV must be 3 digits. If not then prevent submit
- if (isValidCvv($cvv.val())) {
-  $cvv.after($(helperSpanCCcvv).text(''));
-  $cvv.removeClass('input-border-red');
-} else {
-  event.preventDefault();
-  $cvv.after($(helperSpanCCcvv).text('CVV must be 3 digits.'));
-  $cvv.addClass('input-border-red');
-}
+//Add total cost
+$('input:checkbox').on('change', function() {
+    if ($(this).is(':checked')) {
+      $totalDiv.show();
+      $total += +this.value;
+      $totalCost.html('Total: $' + parseInt($total));
+      $error.hide();
+    } else if ($(this).not(':checked')) {
+      $total -= +this.value;
+      $totalCost.html('Total: $' + parseInt($total));
+    }
+  });
+
+  //Credit Card/Payment Section//
+
+  //Allows for the Credit Card payment option to be selected by default
+  $paymentOption[0].selectedIndex = 1;
+
+  //This displays payment sections based on payment option chosen in "Select" menu
+  $($paymentOption).change(function() {
+    if ($(this).val() === "credit card") {
+      $cardInfo.show();
+    } else {
+      $cardInfo.hide();
+    }
+    if ($(this).val() === "paypal") {
+      $paypal.show();
+    } else {
+      $paypal.hide();
+    }
+    if ($(this).val() === "bitcoin") {
+      $bitcoin.show();
+    } else {
+      $bitcoin.hide();
+    }
+  });
+
+  //Disables "Select Payment Method" in "Select" menu
+  $(function() {
+    $selectMethod.prop("disabled", true);
+});
+
+//This section prompts the user to enter their name, the name field cannot be blank
+$name.focusout(function(e) {
+  if ($name.val() === "") {
+    isNameValid = false;
+    $name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'});
+} else if ($(this).val() > "0") {
+  isNameValid = true;
+  $name.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name'});
 }
 });
 
-//Sets CC as default payment option
-$('#payment option[value="Credit Card"]').prop('selected', true);
+//Email field needs to be formatted like a real email address ex: dave@teamtreehouse.com
+$eMail.focusout(function(e) {
+  let $emailVal = $('#mail').val();
+  let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,5}$');
+    if (!$emailReg.test($emailVal)) {
+      isEmailValid = false;
+      $eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email address'});
+    } else {
+      isEmailValid = true;
+      $eMail.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email address'});
+    }
+  });
 
-//Disables "Select Payment Option" from the drop down list
-$('#payment option[value="select method"]').prop('disabled', true);
+  //The Credit Card field should only accept a number that is between 13-16 digits
+  $creditCardNum.focusout(function(e) {
+    let $creditVal = $('#cc-num').val();
+    let $cardReg = new RegExp('^\\d{13,16}$');
+      if(!$cardReg.test($creditVal)) {
+        isCreditCardValid = false;
+        $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
+      } else {
+        isCreditCardValid = true;
+        $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
+      } 
+    });
+  
+//If either Bitcoin or Paypal are selected, form submission is still allowed
+    $($paymentOption).change(function() {
+      if ($paymentOption.val() == "paypal" || "bitcoin") {
+        isCreditCardValid = true;
+        isZipValid = true;
+        isCvvValid = true;
+      } 
+    });
 
+    //Zip code should only be 5 digits
+    $zipCode.focusout(function(e) {
+      let $zipVal = $('#zip').val();
+      let $zipReg = new RegExp('^\\d{5}$');
+        if (!$zipReg.test($zipVal)) {
+          isZipValid = false;
+          $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
+        } else {
+          isZipValid = true;
+          $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '5 digits'});
+        }
+      });
+
+    //CVV should only be 3 digits
+  $cvv.focusout(function(e) {
+    let $cvvVal = $('#cvv').val();
+    let $cvvReg = new RegExp('^\\d{3}$');
+      if(!$cvvReg.test($cvvVal)) {
+        isCvvValid = false;
+        $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
+      } else {
+        isCvvValid = true;
+        $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '3 digits'});
+      }
+    });
+
+    $('button').on('click', function(e){ 
+      
+      // The user needs to select at least one checkbox under the "Register for Activities" section 
+    if($('.activities input:checkbox:checked').length < 1) {
+      e.preventDefault();
+      isCheckboxValid = false;
+      $error.show();
+    } else {
+      isCheckboxValid = true;
+    } 
+    if (!isNameValid || !isEmailValid || !isCheckboxValid || !isCreditCardValid || !isZipValid || !isCvvValid) {
+      e.preventDefault();
+      if (!isNameValid) {$name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'})};
+      if (!isEmailValid) {$eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email address'})};
+      if (!isCreditCardValid) {$creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Credit Card Number needs to be 13-16 digits'})};
+      if (!isZipValid) {$zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'})};
+      if (!isCvvValid) {$cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'})};
+    }
+    });
