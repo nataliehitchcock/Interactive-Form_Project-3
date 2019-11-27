@@ -163,32 +163,24 @@ $('input:checkbox').on('change', function() {
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-const $paymentOption = $("#payment");
-const $cardInfo = $("#credit-card");
-const $paypalOption = $("#paypal");
-const $bitcoinOption = $("#bitcoin");
-
-// By Default
-$("#payment option:selected").remove();
-$paypalOption.hide();
-$bitcoinOption.hide();
-
-// Handles showing / hiding payments whenever selector changes
-$paymentOption.change(() => {
-  if ($("#payment option:selected").text() === "Credit Card") {
-    $cardInfo.show();
-    $paypalOption.hide();
-    $bitcoinOption.hide();
-  } else if ($("#payment option:selected").text() === "PayPal") {
-    $paypalOption.show();
-    $cardInfo.hide();
-    $bitcoinOption.hide();
-  } else if ($("#payment option:selected").text() === "Bitcoin") {
-    $bitcoinOption.show();
-    $cardInfo.hide();
-    $paypalOption.hide();
-  }
-});
+  $($paymentOption).change(function() {
+        if ($(this).val() === "credit card") {
+          $cardInfo.show();
+        } else {
+          $cardInfo.hide();
+        }
+        if ($(this).val() === "paypal") {
+          $paypal.show();
+        } else {
+          $paypal.hide();
+        }
+        if ($(this).val() === "bitcoin") {
+          $bitcoin.show();
+        } else {
+          $bitcoin.hide();
+        }
+      });
+    
 
   //Disables "Select Payment Method" in "Select" menu
   $(function() {
