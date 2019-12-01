@@ -148,12 +148,12 @@ $error.hide();
 $('input:checkbox').on('change', function() {
     if ($(this).is(':checked')) {
       $totalDiv.show();
-      $total += +this.value;
-      $totalCost.html('Total: $' + parseInt(total));
+      $total += +$(this).attr('data-cost');
+      $totalCost.html('Total: $' + parseInt($total));
       $error.hide();
     } else if ($(this).not(':checked')) {
-      $total -= +this.value;
-      $totalCost.html('Total: $' + parseInt(total));
+      $total -= +$(this).attr('data-cost');
+      $totalCost.html('Total: $' + parseInt($total));
     }
   });
 
@@ -163,22 +163,23 @@ $('input:checkbox').on('change', function() {
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  if ($optionValue === $paypalOption) {
-  $creditOption.hide();
-  $bitcoinSection.hide();
-  $paypalSection.show();
+  if ($paymentOption.val()=== 'Paypal'){
+  $('#credit-card').hide();
+  $('#paypal').show();
+  $('#bitcoin').hide();
 }
 
-if ($optionValue === $bitcoinOption) {
-  $creditOption.hide();
-  $paypalSection.hide();
-  $bitcoinSection.show();
+if ($paymentOption.val()=== 'Bitcoin'){
+  $('#credit-card').hide();
+  $('#paypal').hide();
+  $('#bitcoin').show();
 }
 
-if ($optionValue === $creditCardOption) {
-  $paypalSection.hide();
-  $bitcoinSection.hide();
-  $creditOption.show();
+if ($paymentOption.val()=== 'Credit Card'){
+  $('#credit-card').show();
+  $('#paypal').hide();
+  $('#bitcoin').hide();
+}
 
   //Disables "Select Payment Method" in "Select" menu
   $(function() {
@@ -272,7 +273,7 @@ $eMail.focusout(function(e) {
       if (!isNameValid) {$name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'})};
       if (!isEmailValid) {$eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email address'})};
       if (!isCreditCardValid) {$creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Credit Card Number needs to be 13-16 digits'})};
-      if (!isZipValid) {$zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'})};
-      if (!isCvvValid) {$cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'})};
+      if (!isZipValid) {$zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: ' Zip Code should be 5 digits'})};
+      if (!isCvvValid) {$cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'CVV should be 3 digits'})};
     }
     });
