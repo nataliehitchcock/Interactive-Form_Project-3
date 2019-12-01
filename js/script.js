@@ -163,23 +163,22 @@ $('input:checkbox').on('change', function() {
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  $($paymentOption).change(function() {
-    if ($(this).val() === "credit card") {
-      $cardInfo.show();
-    } else {
-      $cardInfo.hide();
-    }
-    if ($(this).val() === "paypal") {
-      $paypal.show();
-    } else {
-      $paypal.hide();
-    }
-    if ($(this).val() === "bitcoin") {
-      $bitcoin.show();
-    } else {
-      $bitcoin.hide();
-    }
-  });
+  if ($optionValue === $paypalOption) {
+  $creditOption.hide();
+  $bitcoinSection.hide();
+  $paypalSection.show();
+}
+
+if ($optionValue === $bitcoinOption) {
+  $creditOption.hide();
+  $paypalSection.hide();
+  $bitcoinSection.show();
+}
+
+if ($optionValue === $creditCardOption) {
+  $paypalSection.hide();
+  $bitcoinSection.hide();
+  $creditOption.show();
 
   //Disables "Select Payment Method" in "Select" menu
   $(function() {
