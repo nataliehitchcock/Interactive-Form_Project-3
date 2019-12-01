@@ -149,11 +149,11 @@ $('input:checkbox').on('change', function() {
     if ($(this).is(':checked')) {
       $totalDiv.show();
       $total += +this.value;
-      $totalCost.html('Total: $' + parseInt($total));
+      $totalCost.html('Total: $' + parseInt(total));
       $error.hide();
     } else if ($(this).not(':checked')) {
       $total -= +this.value;
-      $totalCost.html('Total: $' + parseInt($total));
+      $totalCost.html('Total: $' + parseInt(total));
     }
   });
 
