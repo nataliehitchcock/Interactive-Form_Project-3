@@ -1,6 +1,6 @@
 //Setting up Variables//
 
-const $jobTitle = $("#userTitle");
+const $jobTitle = $("#title");
 const $otherJobTitle = $("#other-title");
 const $tshirtDesign = $("#design");
 const $tshirtColor = $("#colors-js-puns");
@@ -70,22 +70,26 @@ $(function() {
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
 
 $($tshirtDesign).change(function() {
-  if ($tshirtDesign.val() === "js puns") {
+  const option = $tshirtDesign.find(':selected').text();
+  console.log(option);
+  if (option === "Theme - JS Puns") {
     $tshirtColor.show();
-    $('#color option[value="cornflowerblue"]').show();
-    $('#color option[value="darkslategrey"]').show();
-    $('#color option[value="gold"]').show();
-    $('#color option[value="tomato"]').hide();
-    $('#color option[value="steelblue"]').hide();
-    $('#color option[value="dimgrey"]').hide();
-  } else if ($tshirtDesign.val() === "heart js") {
+console.log("JS Puns Clicked");
+    $('#color option[value="cornflowerblue"]').attr('hidden', false).attr('disabled', false);
+    $('#color option[value="darkslategrey"]').attr('hidden', false).attr('disabled', false);
+    $('#color option[value="gold"]').attr('hidden', false).attr('disabled', false);
+    $('#color option[value="tomato"]').attr('hidden', true).attr('disabled', true);
+    $('#color option[value="steelblue"]').attr('hidden', true).attr('disabled', true);
+    $('#color option[value="dimgrey"]').attr('hidden', true).attr('disabled', true);
+  } else if (option === "Theme - I ♥ JS") {
     $tshirtColor.show();
-    $('#color option[value="tomato"]').show();
-    $('#color option[value="steelblue"]').show();
-    $('#color option[value="dimgrey"]').show();
-    $('#color option[value="cornflowerblue"]').hide();
-    $('#color option[value="darkslategrey"]').hide();
-    $('#color option[value="gold"]').hide();
+console.log("I ♥ JS Clicked");
+    $('#color option[value="tomato"]').attr('hidden', false).attr('disabled', false);
+    $('#color option[value="steelblue"]').attr('hidden', false).attr('disabled', false);
+    $('#color option[value="dimgrey"]').attr('hidden', false).attr('disabled', false);
+    $('#color option[value="cornflowerblue"]').attr('hidden', true).attr('disabled', true);
+    $('#color option[value="darkslategrey"]').attr('hidden', true).attr('disabled', true);
+    $('#color option[value="gold"]').attr('hidden', true).attr('disabled', true);
   }
 });
 
@@ -146,16 +150,20 @@ $error.hide();
 
 //Add total cost
 $('input:checkbox').on('change', function() {
-    if ($(this).is(':checked')) {
+    const $clickedCost = parseInt( $(this).attr('data-cost').replace("$", ""));  
+  console.log($clickedCost);
+  if ($(this).is(':checked')) {
       $totalDiv.show();
-      $total += +$(this).attr('data-cost');
-      $totalCost.html('Total: $' + parseInt($total));
+      $total += $clickedCost;
+      $totalCost.html('Total: $' + $total);
       $error.hide();
     } else if ($(this).not(':checked')) {
-      $total -= +$(this).attr('data-cost');
-      $totalCost.html('Total: $' + parseInt($total));
+      $total -= $clickedCost;
+      $totalCost.html('Total: $' + $total);
     }
+console.log($total);
   });
+
 
   //Credit Card/Payment Section//
 
