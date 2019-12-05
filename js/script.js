@@ -50,12 +50,18 @@ $tshirtColor.hide();
  $bitcoin.hide();
 
 // Text field that will be revealed when the "other" option is selected from the "Job Role" drop down menu.
-$($jobTitle).change(function() {
-  if ($jobTitle.val() === "other") {
-    $otherJobTitle.show();
-    } else {
-    $otherJobTitle.hide();
-  }
+const jobroleSelector = $("select[id='title']"); 
+const otherInput = $("#other-title"); 
+otherInput.hide(); 
+
+// Whenever Input changes, check if Option is chosen
+jobroleSelector.change(() => {
+  const selectedOption = $("select[name='user-title'] option:selected").text();
+  if (selectedOption == "Other") {
+    otherInput.show();
+  } else {
+    otherInput.hide();
+  }
 });
 
 // Disables "Select Job Role" in the select menu
@@ -79,7 +85,7 @@ $selectTheme.prop("disabled", true);
 $tShirtDesignDropdown.change( () => {
   //Grabbing the selected option and storing it to use in the conditional statements.
   const option = $tShirtDesignDropdown.find(':selected').text();
-  
+
   const $colorTomato = $('#color option[value="tomato"]');
   const $colorSteelBlue = $('#color option[value="steelblue"]');
   const $colorDimGrey = $('#color option[value="dimgrey"]');
