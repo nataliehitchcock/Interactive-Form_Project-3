@@ -49,20 +49,15 @@ $tshirtColor.hide();
  $paypal.hide();
  $bitcoin.hide();
 
-// Text field that will be revealed when the "other" option is selected from the "Job Role" drop down menu.
-const jobroleSelector = $("select[id='title']"); 
-const otherInput = $("#other-title"); 
-otherInput.hide(); 
-
-// Whenever Input changes, check if Option is chosen
-jobroleSelector.change(() => {
-  const selectedOption = $("select[name='user-title'] option:selected").text();
-  if (selectedOption == "Other") {
-    otherInput.show();
-  } else {
-    otherInput.hide();
-  }
-});
+// Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
+const $jobTitle = $('#title');
+$jobTitle.on('change', function(event){
+    if ($(event.target).val()==='other'){
+    $('#other-title').show();
+    } else {
+       $('#other-title').hide();
+    }
+ });
 
 // Disables "Select Job Role" in the select menu
 $(function() {
@@ -87,9 +82,9 @@ const colorMenu = $("#colors-js-puns");
 colorMenu.hide();
 
 // Default settings for Color Selector - Disabled
-$("<option>Please select a T-shirt theme</option>").appendTo(colorSelector); // Create new option for default
-colorSelector.find('option:contains("Please")').attr("selected", true); // Finds option, sets to true
-colorSelector.prop("disabled", true); // Selector disabled by default
+$("<option>Please select a T-shirt theme</option>").appendTo(colorSelector); 
+colorSelector.find('option:contains("Please")').attr("selected", true); 
+colorSelector.prop("disabled", true); 
 
 // When design dropdown is changed
 designSelector.change(() => {
@@ -234,10 +229,10 @@ $payment.on('change',function(event){
 $name.focusout(function(e) {
   if ($name.val() === "") {
     isNameValid = false;
-    $name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'});
+    $name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name.'});
 } else if ($(this).val() > "0") {
   isNameValid = true;
-  $name.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name'});
+  $name.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name.'});
 }
 });
 
@@ -247,10 +242,10 @@ $eMail.focusout(function(e) {
   let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,5}$');
     if (!$emailReg.test($emailVal)) {
       isEmailValid = false;
-      $eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email address'});
+      $eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email address.'});
     } else {
       isEmailValid = true;
-      $eMail.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email address'});
+      $eMail.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email address.'});
     }
   });
 
@@ -260,10 +255,10 @@ $eMail.focusout(function(e) {
     let $cardReg = new RegExp('^\\d{13,16}$');
       if(!$cardReg.test($creditVal)) {
         isCreditCardValid = false;
-        $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
+        $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a number that is between 13 and 16 digits long.'});
       } else {
         isCreditCardValid = true;
-        $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
+        $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a number that is between 13 and 16 digits long.'});
       } 
     });
   
@@ -282,10 +277,10 @@ $eMail.focusout(function(e) {
       let $zipReg = new RegExp('^\\d{5}$');
         if (!$zipReg.test($zipVal)) {
           isZipValid = false;
-          $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
+          $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a zip code that is 5 digits long.'});
         } else {
           isZipValid = true;
-          $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '5 digits'});
+          $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a zip code that is 5 digits long.'});
         }
       });
 
@@ -295,10 +290,10 @@ $eMail.focusout(function(e) {
     let $cvvReg = new RegExp('^\\d{3}$');
       if(!$cvvReg.test($cvvVal)) {
         isCvvValid = false;
-        $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
+        $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a CVV that is 3 digits long.'});
       } else {
         isCvvValid = true;
-        $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '3 digits'});
+        $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a CVV code that is 3 digits long.'});
       }
     });
 
