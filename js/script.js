@@ -81,42 +81,53 @@ $selectTheme.prop("disabled", true);
 // If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
 
-//This event handler finds the option that is being clicked in the list and then dictates what colors are shown in the color dropdown.
-$tShirtDesignDropdown.change( () => {
-  //Grabbing the selected option and storing it to use in the conditional statements.
-  const option = $tShirtDesignDropdown.find(':selected').text();
+const designSelector = $("select[id='design']");
+const colorSelector = $("select[id='color']");
+const colorMenu = $("#colors-js-puns");
+colorMenu.hide();
 
-  const $colorTomato = $('#color option[value="tomato"]');
-  const $colorSteelBlue = $('#color option[value="steelblue"]');
-  const $colorDimGrey = $('#color option[value="dimgrey"]');
-  const $colorCornflowerBlue = $('#color option[value="cornflowerblue"]');
-  const $colorDarkSlateGrey = $('#color option[value="darkslategrey"]');
-  const $colorGold = $('#color option[value="gold"]');
-  const $firstSelect = $('#color option:first');
-  const $secondSelect = $('#color option[value="tomato"]');
-  
-  if (option === 'Theme - JS Puns') {
-      $firstSelect.prop('selected', true);
-      //Disable colors that should not be in the list for this theme.
-      $colorTomato.attr('hidden', true).attr('disabled', true);
-      $colorSteelBlue.attr('hidden', true).attr('disabled', true);
-      $colorDimGrey.attr('hidden', true).attr('disabled', true);
-      //Show these
-      $colorCornflowerBlue.attr('hidden', false).attr('disabled', false);
-      $colorDarkSlateGrey.attr('hidden', false).attr('disabled', false);
-      $colorGold.attr('hidden', false).attr('disabled', false);
-      $colorOptions.show();
-  } else if (option === 'Theme - I ♥ JS') {
-      $secondSelect.prop('selected', true);
-      //Disable colors that should not be in the list for this theme.
-      $colorCornflowerBlue.attr('hidden', true).attr('disabled', true);
-      $colorDarkSlateGrey.attr('hidden', true).attr('disabled', true);
-      $colorGold.attr('hidden', true).attr('disabled', true);
-      //Show these
-      $colorTomato.attr('hidden', false).attr('disabled', false);
-      $colorSteelBlue.attr('hidden', false).attr('disabled', false);
-      $colorDimGrey.attr('hidden', false).attr('disabled', false);
-      $colorOptions.show();
+// Default settings for Color Selector - Disabled
+$("<option>Please select a T-shirt theme</option>").appendTo(colorSelector); // Create new option for default
+colorSelector.find('option:contains("Please")').attr("selected", true); // Finds option, sets to true
+colorSelector.prop("disabled", true); // Selector disabled by default
+
+// When design dropdown is changed
+designSelector.change(() => {
+  // Disables Select Theme as option
+  designSelector.find('option:contains("Select")').attr("disabled", true);
+
+  const selectedOption = $("select[id='design'] option:selected").text();
+  // User changes from default
+  if (selectedOption !== "Select Theme") {
+    colorMenu.show();
+    colorSelector.prop("disabled", false); // Enable
+    colorSelector.find('option:contains("Please")').remove();
+    // User chooses theme 'JS Puns'
+    if (selectedOption == "Theme - JS Puns") {
+      $("option[value='cornflowerblue']")
+        .show()
+        .attr("selected", true);
+      $("option[value='darkslategrey']").show();
+      $("option[value='gold']").show();
+      $("option[value='tomato']")
+        .hide()
+        .attr("selected", false);
+      $("option[value='steelblue']").hide();
+      $("option[value='dimgrey']").hide();
+    }
+    // User chooses theme 'I love JS'
+    else if (selectedOption == "Theme - I ♥ JS") {
+      $("option[value='cornflowerblue']")
+        .hide()
+        .attr("selected", false);
+      $("option[value='darkslategrey']").hide();
+      $("option[value='gold']").hide();
+      $("option[value='tomato']")
+        .show()
+        .attr("selected", true);
+      $("option[value='steelblue']").show();
+      $("option[value='dimgrey']").show();
+    }
   }
 });
 
