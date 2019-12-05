@@ -50,14 +50,13 @@ $tshirtColor.hide();
  $bitcoin.hide();
 
 // Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
-const $jobTitle = $('#title');
-$otherJobTitle.on('change', function(event){
-    if ($(event.target).val()==='other'){
-    $('#other-title').show();
-    } else {
-       $('#other-title').hide();
-    }
- });
+$($jobTitle).change(function() {
+    if ($jobTitle.val() === "other") {
+      $otherJobTitle.show();
+      } else {
+      $otherJobTitle.hide();
+    }
+  });
 
 // Disables "Select Job Role" in the select menu
 $(function() {
@@ -81,7 +80,6 @@ const colorSelector = $("select[id='color']");
 const colorMenu = $("#colors-js-puns");
 colorMenu.hide();
 
-// Default settings for Color Selector - Disabled
 $("<option>Please select a T-shirt theme</option>").appendTo(colorSelector); 
 colorSelector.find('option:contains("Please")').attr("selected", true); 
 colorSelector.prop("disabled", true); 
@@ -125,7 +123,6 @@ designSelector.change(() => {
     }
   }
 });
-
 
 //Register for Activities Section//
 
