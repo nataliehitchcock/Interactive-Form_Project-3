@@ -152,28 +152,38 @@ $totalDiv.hide();
 $error.hide();
 
 //Add total cost
-$('input:checkbox').on('change', function() {
-    const $clickedCost = parseInt( $(this).attr('data-cost').replace("$", ""));  
-  console.log($clickedCost);
-  if ($(this).is(':checked')) {
-      $totalDiv.show();
-      $total += $clickedCost;
-      $totalCost.html('Total: $' + $total);
-      $error.hide();
-    } else if ($(this).not(':checked')) {
-      $total -= $clickedCost;
-      $totalCost.html('Total: $' + $total);
-    }
-console.log($total);
-  });
+//create an element to display the total activity cost
+let $storeTotal = 0;
+let totalCost = document.createElement("span"); 
+$('.activities').append(totalCost);
 
+//Listen for changes in the activity section
+let $checkbox = $('.activities input[type="checkbox"]');
+$('.activities').on('change',function(event){
+    for (i = 0; i < $checkbox.length; i ++){
+        let $clicked = ($(event.target));   
+        let $clickedCost = $clicked.attr('data-cost');  
+        let $clickedCostNum = parseInt($clickedCost.replace('$', '')); 
+        let $clickedDayTime = $clicked.attr('data-day-and-time'); 
+        let $checkboxDayTime = $checkbox.eq(i).data('day-and-time'); 
+        let $checkboxCost = $checkbox.eq(i).data('cost');
+        let $checkboxCostNum = parseInt($checkboxCost.replace('$', ''));
+
+        if ($clicked.eq(i).prop('checked')) {
+            $storeTotal = $storeTotal + $clickedCostNum;
+        } else if ($clicked.eq(i).prop('checked')===false){
+            $storeTotal = $storeTotal - $clickedCostNum;
+        } 
+    $(totalCost).html('<span>Total Cost: $'+ $storeTotal +'</span>');
+  
 
   //Credit Card/Payment Section//
 
   //Allows for the Credit Card payment option to be selected by default
   $paymentOption[0].selectedIndex = 1;
 
-  //This displays payment sections based on payment option chosen in "Select" menu
+  //This displays payment sections based on payment option chosen in "Select" menu 
+  //Credit for this section is given to both Megan Katherine O'Brien for suggesting the event listener and Christine Treacy for helping me with the code itself.
 const $payment = $('#payment');
 const $paymentOptions = $('#payment option');
 $paymentOptions.eq(0).hide();
@@ -197,7 +207,7 @@ $payment.on('change',function(event){
    $paymentSel = $(event.target);
 })
 
- 
+ //Form Validation
 
 
 //This section prompts the user to enter their name, the name field cannot be blank
