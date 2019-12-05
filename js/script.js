@@ -75,28 +75,43 @@ $selectTheme.prop("disabled", true);
 // If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
 
-$($tshirtDesign).change(function() {
-  const option = $tshirtDesign.find(':selected').text();
-  console.log(option);
-  if (option === "Theme - JS Puns") {
-    $tshirtColor.show();
-console.log("JS Puns Clicked");
-    $('#color option[value="cornflowerblue"]').attr('hidden', false).attr('disabled', false);
-    $('#color option[value="darkslategrey"]').attr('hidden', false).attr('disabled', false);
-    $('#color option[value="gold"]').attr('hidden', false).attr('disabled', false);
-    $('#color option[value="tomato"]').attr('hidden', true).attr('disabled', true);
-    $('#color option[value="steelblue"]').attr('hidden', true).attr('disabled', true);
-    $('#color option[value="dimgrey"]').attr('hidden', true).attr('disabled', true);
-  } else if (option === "Theme - I ♥ JS") {
-    $tshirtColor.show();
-console.log("I ♥ JS Clicked");
-    $('#color option[value="tomato"]').attr('hidden', false).attr('disabled', false);
-    $('#color option[value="steelblue"]').attr('hidden', false).attr('disabled', false);
-    $('#color option[value="dimgrey"]').attr('hidden', false).attr('disabled', false);
-    $('#color option[value="cornflowerblue"]').attr('hidden', true).attr('disabled', true);
-    $('#color option[value="darkslategrey"]').attr('hidden', true).attr('disabled', true);
-    $('#color option[value="gold"]').attr('hidden', true).attr('disabled', true);
-  }
+//This event handler finds the option that is being clicked in the list and then dictates what colors are shown in the color dropdown.
+$tShirtDesignDropdown.change( () => {
+  //Grabbing the selected option and storing it to use in the conditional statements.
+  const option = $tShirtDesignDropdown.find(':selected').text();
+  
+  const $colorTomato = $('#color option[value="tomato"]');
+  const $colorSteelBlue = $('#color option[value="steelblue"]');
+  const $colorDimGrey = $('#color option[value="dimgrey"]');
+  const $colorCornflowerBlue = $('#color option[value="cornflowerblue"]');
+  const $colorDarkSlateGrey = $('#color option[value="darkslategrey"]');
+  const $colorGold = $('#color option[value="gold"]');
+  const $firstSelect = $('#color option:first');
+  const $secondSelect = $('#color option[value="tomato"]');
+  
+  if (option === 'Theme - JS Puns') {
+      $firstSelect.prop('selected', true);
+      //Disable colors that should not be in the list for this theme.
+      $colorTomato.attr('hidden', true).attr('disabled', true);
+      $colorSteelBlue.attr('hidden', true).attr('disabled', true);
+      $colorDimGrey.attr('hidden', true).attr('disabled', true);
+      //Show these
+      $colorCornflowerBlue.attr('hidden', false).attr('disabled', false);
+      $colorDarkSlateGrey.attr('hidden', false).attr('disabled', false);
+      $colorGold.attr('hidden', false).attr('disabled', false);
+      $colorOptions.show();
+  } else if (option === 'Theme - I ♥ JS') {
+      $secondSelect.prop('selected', true);
+      //Disable colors that should not be in the list for this theme.
+      $colorCornflowerBlue.attr('hidden', true).attr('disabled', true);
+      $colorDarkSlateGrey.attr('hidden', true).attr('disabled', true);
+      $colorGold.attr('hidden', true).attr('disabled', true);
+      //Show these
+      $colorTomato.attr('hidden', false).attr('disabled', false);
+      $colorSteelBlue.attr('hidden', false).attr('disabled', false);
+      $colorDimGrey.attr('hidden', false).attr('disabled', false);
+      $colorOptions.show();
+  }
 });
 
 
@@ -152,29 +167,17 @@ $totalDiv.hide();
 $error.hide();
 
 //Add total cost
-//create an element to display the total activity cost
-let $storeTotal = 0;
-let totalCost = document.createElement("span"); 
-$('.activities').append(totalCost);
-
-//Listen for changes in the activity section
-let $checkbox = $('.activities input[type="checkbox"]');
-$('.activities').on('change',function(event){
-    for (i = 0; i < $checkbox.length; i ++){
-        let $clicked = ($(event.target));   
-        let $clickedCost = $clicked.attr('data-cost');  
-        let $clickedCostNum = parseInt($clickedCost.replace('$', '')); 
-        let $clickedDayTime = $clicked.attr('data-day-and-time'); 
-        let $checkboxDayTime = $checkbox.eq(i).data('day-and-time'); 
-        let $checkboxCost = $checkbox.eq(i).data('cost');
-        let $checkboxCostNum = parseInt($checkboxCost.replace('$', ''));
-
-        if ($clicked.eq(i).prop('checked')) {
-            $storeTotal = $storeTotal + $clickedCostNum;
-        } else if ($clicked.eq(i).prop('checked')===false){
-            $storeTotal = $storeTotal - $clickedCostNum;
-        } 
-    $(totalCost).html('<span>Total Cost: $'+ $storeTotal +'</span>');
+$('input:checkbox').on('change', function() {
+      if ($(this).is(':checked')) {
+        $totalDiv.show();
+        $total += +this.value;
+        $totalCost.html('Total: $' + parseInt($total));
+        $error.hide();
+      } else if ($(this).not(':checked')) {
+        $total -= +this.value;
+        $totalCost.html('Total: $' + parseInt($total));
+      }
+    });
   
 
   //Credit Card/Payment Section//
