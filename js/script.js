@@ -63,6 +63,12 @@ $(function() {
     $selectJob.prop("disabled", true);
 });
 
+//Disables Themes from T-Shirt Menu
+$selectTheme.prop("disabled", true);
+
+//Disables "Select Payment Method" in "Select" menu
+  $selectMethod.prop("disabled", true);
+
 // T-shirt Section//
 
 // If the user selects "Theme - JS Puns"- the color menu should display the following: "Cornflower Blue," "Dark Slate Grey," and "Gold."
@@ -93,9 +99,6 @@ console.log("I ♥ JS Clicked");
   }
 });
 
-$(function() {
-    $selectTheme.prop("disabled", true);
-});
 
 //Register for Activities Section//
 
@@ -171,28 +174,31 @@ console.log($total);
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  if ($paymentOption.val()=== 'Paypal'){
-  $('#credit-card').hide();
-  $('#paypal').show();
-  $('#bitcoin').hide();
-}
+const $payment = $('#payment');
+const $paymentOptions = $('#payment option');
+$paymentOptions.eq(0).hide();
+$paymentOptions.eq(1).prop('selected',true);
+let $paymentSel = $("#payment option:selected").val();
 
-if ($paymentOption.val()=== 'Bitcoin'){
-  $('#credit-card').hide();
-  $('#paypal').hide();
-  $('#bitcoin').show();
-}
+$payment.on('change',function(event){
+    if ($(event.target).val()=== 'Credit Card'){
+        $('#credit-card').show();
+        $('#paypal').hide();
+        $('#bitcoin').hide();
+    } else if ($(event.target).val()=== 'PayPal'){
+        $('#credit-card').hide();
+        $('#paypal').show();
+        $('#bitcoin').hide();
+    } else {
+        $('#credit-card').hide();
+        $('#paypal').hide();
+        $('#bitcoin').show();
+    } 
+   $paymentSel = $(event.target);
+})
 
-if ($paymentOption.val()=== 'Credit Card'){
-  $('#credit-card').show();
-  $('#paypal').hide();
-  $('#bitcoin').hide();
-}
+ 
 
-  //Disables "Select Payment Method" in "Select" menu
-  $(function() {
-    $selectMethod.prop("disabled", true);
-});
 
 //This section prompts the user to enter their name, the name field cannot be blank
 $name.focusout(function(e) {
