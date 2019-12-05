@@ -51,7 +51,7 @@ $tshirtColor.hide();
 
 // Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
 const $jobTitle = $('#title');
-$jobTitle.on('change', function(event){
+$otherJobTitle.on('change', function(event){
     if ($(event.target).val()==='other'){
     $('#other-title').show();
     } else {
