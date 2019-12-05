@@ -83,14 +83,11 @@ colorMenu.hide();
 $("<option>Please select a T-shirt theme</option>").appendTo(colorSelector); 
 colorSelector.find('option:contains("Please")').attr("selected", true); 
 colorSelector.prop("disabled", true); 
-
-// When design dropdown is changed
 designSelector.change(() => {
   // Disables Select Theme as option
   designSelector.find('option:contains("Select")').attr("disabled", true);
 
   const selectedOption = $("select[id='design'] option:selected").text();
-  // User changes from default
   if (selectedOption !== "Select Theme") {
     colorMenu.show();
     colorSelector.prop("disabled", false); // Enable
@@ -176,18 +173,30 @@ $totalDiv.hide();
 $error.hide();
 
 //Add total cost
-$('input:checkbox').on('change', function() {
-      if ($(this).is(':checked')) {
-        $totalDiv.show();
-        $total += +this.value;
-        $totalCost.html('Total: $' + parseInt($total));
-        $error.hide();
-      } else if ($(this).not(':checked')) {
-        $total -= +this.value;
-        $totalCost.html('Total: $' + parseInt($total));
-      }
-    });
-  
+let $storeTotal = 0;
+let totalCost = document.createElement("span"); 
+$('.activities').append(totalCost);
+
+//listen for changes in the activity section
+let $checkbox = $('.activities input[type="checkbox"]');
+$('.activities').on('change',function(event){
+    for (i = 0; i < $checkbox.length; i ++){
+        let $clicked = ($(event.target));  
+        let $clickedCost = $clicked.attr('data-cost');  
+        let $clickedCostNum = parseInt($clickedCost.replace('$', '')); 
+        let $clickedDayTime = $clicked.attr('data-day-and-time'); 
+        let $checkboxDayTime = $checkbox.eq(i).data('day-and-time'); 
+        let $checkboxCost = $checkbox.eq(i).data('cost');
+        let $checkboxCostNum = parseInt($checkboxCost.replace('$', ''));
+
+    //update $clickedCostNum based on activities checked
+        if ($clicked.eq(i).prop('checked')) {
+            $storeTotal = $storeTotal + $clickedCostNum;
+        } else if ($clicked.eq(i).prop('checked')===false){
+            $storeTotal = $storeTotal - $clickedCostNum;
+        } 
+    $(totalCost).html('<span>Total Cost: $'+ $storeTotal +'</span>');
+      
 
   //Credit Card/Payment Section//
 
@@ -252,10 +261,10 @@ $eMail.focusout(function(e) {
     let $cardReg = new RegExp('^\\d{13,16}$');
       if(!$cardReg.test($creditVal)) {
         isCreditCardValid = false;
-        $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a number that is between 13 and 16 digits long.'});
+        $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'CC should be between 13 and 16 digits.'});
       } else {
         isCreditCardValid = true;
-        $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a number that is between 13 and 16 digits long.'});
+        $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'CC should be between 13 and 16 digits.'});
       } 
     });
   
@@ -274,10 +283,10 @@ $eMail.focusout(function(e) {
       let $zipReg = new RegExp('^\\d{5}$');
         if (!$zipReg.test($zipVal)) {
           isZipValid = false;
-          $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a zip code that is 5 digits long.'});
+          $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Zip code must be 5 digits long.'});
         } else {
           isZipValid = true;
-          $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a zip code that is 5 digits long.'});
+          $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Zip code must be 5 digits long.'});
         }
       });
 
@@ -287,16 +296,16 @@ $eMail.focusout(function(e) {
     let $cvvReg = new RegExp('^\\d{3}$');
       if(!$cvvReg.test($cvvVal)) {
         isCvvValid = false;
-        $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a CVV that is 3 digits long.'});
+        $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'CVV code must be 3 digits long.'});
       } else {
         isCvvValid = true;
-        $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a CVV code that is 3 digits long.'});
+        $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'CVV code must be 3 digits long.'});
       }
     });
 
     $('button').on('click', function(e){ 
       
-      // The user needs to select at least one checkbox under the "Register for Activities" section 
+    // The user needs to select at least one checkbox under the "Register for Activities" section 
     if($('.activities input:checkbox:checked').length < 1) {
       e.preventDefault();
       isCheckboxValid = false;
