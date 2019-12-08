@@ -15,6 +15,7 @@ const $buildTools = $('input[name="build-tools"]');
 const $npm = $('input[name="npm"]');
 const $roles = ('.roles');
 const $cardInfo = $('#credit-card');
+const $creditCardOption = $('#payment option[value="Credit Card"]').text();
 const $paymentOption = $('#payment');
 const $creditOption = $('#credit');
 const $paypaloption = $('#paypalOption');
@@ -173,26 +174,34 @@ $paymentOption[0].selectedIndex = 1;
 // Payment option in the select menu should match the payment option displayed on the page.
 // When a user selects the "PayPal" payment option, the PayPal information should display, and the credit card and “Bitcoin” information should be hidden.
 // When a user selects the "Bitcoin" payment option, the Bitcoin information should display, and the credit card and “PayPal” information should be hidden.
-$($paymentOption).change(function() {
-  if ($(this).val() === "credit card") {
-    $cardInfo.show();
-  } else {
-    $cardInfo.hide();
-  }
-  if ($(this).val() === "paypal") {
-    $paypal.show();
-  } else {
-    $paypal.hide();
-  }
-  if ($(this).val() === "bitcoin") {
-    $bitcoin.show();
-  } else {
-    $bitcoin.hide();
-  }
-});
+$paymentOption.change( (event) => {
+  const option = event.target;
+  const $optionValue = $(option).prop("value");
 
-// NOTE: The user should not be able to select the "Select Payment Method" option from the payment select menu,
-    // because the user should not be able to submit the form without a chosen payment option.
+  //Declaring payment option variables for if statements.
+  const $paypalOption = $('#payment option[value="PayPal"]').text();
+  const $bitcoinOption = $('#payment option[value="Bitcoin"]').text();
+  const $creditCardOption = $('#payment option[value="Credit Card"]').text();
+  
+  if ($optionValue === $paypalOption) {
+      $creditCardSection.hide();
+      $bitcoinSection.hide();
+      $paypalSection.show();
+  }
+
+  if ($optionValue === $bitcoinOption) {
+      $creditCardSection.hide();
+      $paypalSection.hide();
+      $bitcoinSection.show();
+  }
+
+  if ($optionValue === $creditCardOption) {
+      $paypalSection.hide();
+      $bitcoinSection.hide();
+      $creditCardSection.show();
+  }
+
+});
 
 // Disables the "Select Payment Method" option in the select menu
 $(function() {
