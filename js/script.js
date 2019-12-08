@@ -37,16 +37,17 @@ let isCreditCardValid = false;
 let isZipValid = false;
 let isCvvValid = false;
 
-// -------------------------------------------------------------------------------------------------------------
+
 
 // Hides the "other" job text field upon load
-$otherJobTitle.hide();
+$(‘otherJobTitle’).hide 
 // Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
-$($jobTitle).change(function() {
-  if ($jobTitle.val() === "other") {
-    $otherJobTitle.show();
-    } else {
-    $otherJobTitle.hide();
+$('#userTitle').change(function(){
+  const value = $(this).val();
+  if (value == 'other'){
+    $('#other-title').show();
+  } else {
+    $('#other-title').hide();
   }
 });
 
@@ -55,7 +56,7 @@ $(function() {
     $selectJob.prop("disabled", true);
 });
 
-// -------------------------------------------------------------------------------------------------------------
+
 
 // Hides the shirt color option upon load
 $shirtColor.hide();
