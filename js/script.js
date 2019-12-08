@@ -188,21 +188,28 @@ $('input:checkbox').on('change', function() {
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  $($paymentOption).change(function() {
-    if ($(event.target).val()=== 'Credit Card');{
-      $('#credit-card').show();
-      $('#paypal').hide();
-      $('#bitcoin').hide();}
-    if ($(event.target).val()=== 'Paypal');{
-      $('#credit-card').hide();
-      $('#paypal').show();
-      $('#bitcoin').hide();} 
-    if ($(event.target).val()=== 'Bitcoin');{
-        $('#credit-card').hide();
-        $('#paypal').hide();
-        $('#bitcoin').show();}    
-      });
-
+  const $payment = $('#payment');
+  const $paymentOption = $('#payment option');
+  $paymentOption.eq(0).hide();
+  $paymentOption.eq(1).prop('selected',true);
+  let $paymentSel = $("#payment option:selected").val();
+  
+  $payment.on('change',function(event){
+      if ($(event.target).val()=== 'Credit Card'){
+          $('#credit-card').show();
+          $('#paypal').hide();
+          $('#bitcoin').hide();
+      } else if ($(event.target).val()=== 'PayPal'){
+          $('#credit-card').hide();
+          $('#paypal').show();
+          $('#bitcoin').hide();
+      } else {
+          $('#credit-card').hide();
+          $('#paypal').hide();
+          $('#bitcoin').show();
+      } 
+     $paymentSel = $(event.target);
+  })
 //This section prompts the user to enter their name, the name field cannot be blank
 $name.focusout(function(e) {
   if ($name.val() === "") {
