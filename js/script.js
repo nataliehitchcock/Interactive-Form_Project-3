@@ -66,45 +66,30 @@ $jobTitle.change( () => {
 // If the user selects "Theme - JS Puns"- the color menu should display the following: "Cornflower Blue," "Dark Slate Grey," and "Gold."
 // If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
-$tShirtDesign.change( () => {
-  //Grabbing the selected option and storing it to use in the conditional statements.
-  const option = $tShirtDesign.find(':selected').text();
-  //Declaring some color variables.
-  const $colorTomato = $('#color option[value="tomato"]');
-  const $colorSteelBlue = $('#color option[value="steelblue"]');
-  const $colorDimGrey = $('#color option[value="dimgrey"]');
-  const $colorCornflowerBlue = $('#color option[value="cornflowerblue"]');
-  const $colorDarkSlateGrey = $('#color option[value="darkslategrey"]');
-  const $colorGold = $('#color option[value="gold"]');
-  const $firstSelect = $('#color option:first');
-  const $secondSelect = $('#color option[value="tomato"]');
-  
-  if (option === 'Theme - JS Puns') {
-      $firstSelect.prop('selected', true);
-      //Disable colors that should not be in the list for this theme.
-      $colorTomato.attr('hidden', true).attr('disabled', true);
-      $colorSteelBlue.attr('hidden', true).attr('disabled', true);
-      $colorDimGrey.attr('hidden', true).attr('disabled', true);
-      //Show these
-      $colorCornflowerBlue.attr('hidden', false).attr('disabled', false);
-      $colorDarkSlateGrey.attr('hidden', false).attr('disabled', false);
-      $colorGold.attr('hidden', false).attr('disabled', false);
-      $$tshirtColor.show();
-  } else if (option === 'Theme - I ♥ JS') {
-      $secondSelect.prop('selected', true);
-      //Disable colors that should not be in the list for this theme.
-      $colorCornflowerBlue.attr('hidden', true).attr('disabled', true);
-      $colorDarkSlateGrey.attr('hidden', true).attr('disabled', true);
-      $colorGold.attr('hidden', true).attr('disabled', true);
-      //Show these
-      $colorTomato.attr('hidden', false).attr('disabled', false);
-      $colorSteelBlue.attr('hidden', false).attr('disabled', false);
-      $colorDimGrey.attr('hidden', false).attr('disabled', false);
-      $tshirtColor.show();
+$($shirtDesign).change(function() {
+  if ($shirtDesign.val() === "js puns") {
+    $shirtColor.show();
+    $('#color option[value="cornflowerblue"]').show();
+    $('#color option[value="darkslategrey"]').show();
+    $('#color option[value="gold"]').show();
+    $('#color option[value="tomato"]').hide();
+    $('#color option[value="steelblue"]').hide();
+    $('#color option[value="dimgrey"]').hide();
+  } else if ($shirtDesign.val() === "heart js") {
+    $shirtColor.show();
+    $('#color option[value="tomato"]').show();
+    $('#color option[value="steelblue"]').show();
+    $('#color option[value="dimgrey"]').show();
+    $('#color option[value="cornflowerblue"]').hide();
+    $('#color option[value="darkslategrey"]').hide();
+    $('#color option[value="gold"]').hide();
   }
 });
 
-$selectTheme.prop("disabled", true);
+// Disables the "Select Theme" option in the select menu
+$(function() {
+    $selectTheme.prop("disabled", true);
+});
 
 //Register for Activities Section//
 
