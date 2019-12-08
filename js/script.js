@@ -50,19 +50,15 @@ $tshirtColor.hide();
  $bitcoin.hide();
 
 // Text field that will be revealed when the "other" option is selected from the "Job Role" drop down menu.
-$('#userTitle').on('change', function(){
-  if($('#userTitle').val() === 'other'){
-   $('#other-title').show();
-  } else {
-     $('#other-title').hide();
-    }
- })
+$jobTitle.change( () => {
+  const option = $jobTitle.find(':selected').text();
+  if (option === 'Other') {
+      $otherJobTitle.show();
+  }
+});
 
 // Disables "Select Job Role" in the select menu
  $selectJob.prop("disabled", true);
-
-  //Disables "Select Payment Method" in "Select" menu
-  $selectMethod.prop("disabled", true);
 
 
 // T-shirt Section//
@@ -70,49 +66,41 @@ $('#userTitle').on('change', function(){
 // If the user selects "Theme - JS Puns"- the color menu should display the following: "Cornflower Blue," "Dark Slate Grey," and "Gold."
 // If the user selects "Theme - I ♥ JS" - the color menu should display the following: "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
-const designSelector = $("select[id='design']");
-const colorSelector = $("select[id='color']");
-const colorMenu = $("#colors-js-puns");
-colorMenu.hide();
-
-$("<option>Please select a T-shirt theme</option>").appendTo(colorSelector); 
-colorSelector.find('option:contains("Please")').attr("selected", true); 
-colorSelector.prop("disabled", true); 
-designSelector.change(() => {
-  // Disables Select Theme as option
-  designSelector.find('option:contains("Select")').attr("disabled", true);
-
-  const selectedOption = $("select[id='design'] option:selected").text();
-  if (selectedOption !== "Select Theme") {
-    colorMenu.show();
-    colorSelector.prop("disabled", false); // Enable
-    colorSelector.find('option:contains("Please")').remove();
-    // User chooses theme 'JS Puns'
-    if (selectedOption == "Theme - JS Puns") {
-      $("option[value='cornflowerblue']")
-        .show()
-        .attr("selected", true);
-      $("option[value='darkslategrey']").show();
-      $("option[value='gold']").show();
-      $("option[value='tomato']")
-        .hide()
-        .attr("selected", false);
-      $("option[value='steelblue']").hide();
-      $("option[value='dimgrey']").hide();
-    }
-    // User chooses theme 'I love JS'
-    else if (selectedOption == "Theme - I ♥ JS") {
-      $("option[value='cornflowerblue']")
-        .hide()
-        .attr("selected", false);
-      $("option[value='darkslategrey']").hide();
-      $("option[value='gold']").hide();
-      $("option[value='tomato']")
-        .show()
-        .attr("selected", true);
-      $("option[value='steelblue']").show();
-      $("option[value='dimgrey']").show();
-    }
+$tShirtDesign.change( () => {
+  //Grabbing the selected option and storing it to use in the conditional statements.
+  const option = $tShirtDesign.find(':selected').text();
+  //Declaring some color variables.
+  const $colorTomato = $('#color option[value="tomato"]');
+  const $colorSteelBlue = $('#color option[value="steelblue"]');
+  const $colorDimGrey = $('#color option[value="dimgrey"]');
+  const $colorCornflowerBlue = $('#color option[value="cornflowerblue"]');
+  const $colorDarkSlateGrey = $('#color option[value="darkslategrey"]');
+  const $colorGold = $('#color option[value="gold"]');
+  const $firstSelect = $('#color option:first');
+  const $secondSelect = $('#color option[value="tomato"]');
+  
+  if (option === 'Theme - JS Puns') {
+      $firstSelect.prop('selected', true);
+      //Disable colors that should not be in the list for this theme.
+      $colorTomato.attr('hidden', true).attr('disabled', true);
+      $colorSteelBlue.attr('hidden', true).attr('disabled', true);
+      $colorDimGrey.attr('hidden', true).attr('disabled', true);
+      //Show these
+      $colorCornflowerBlue.attr('hidden', false).attr('disabled', false);
+      $colorDarkSlateGrey.attr('hidden', false).attr('disabled', false);
+      $colorGold.attr('hidden', false).attr('disabled', false);
+      $$tshirtColor.show();
+  } else if (option === 'Theme - I ♥ JS') {
+      $secondSelect.prop('selected', true);
+      //Disable colors that should not be in the list for this theme.
+      $colorCornflowerBlue.attr('hidden', true).attr('disabled', true);
+      $colorDarkSlateGrey.attr('hidden', true).attr('disabled', true);
+      $colorGold.attr('hidden', true).attr('disabled', true);
+      //Show these
+      $colorTomato.attr('hidden', false).attr('disabled', false);
+      $colorSteelBlue.attr('hidden', false).attr('disabled', false);
+      $colorDimGrey.attr('hidden', false).attr('disabled', false);
+      $tshirtColor.show();
   }
 });
 
@@ -188,12 +176,6 @@ $('input:checkbox').on('change', function() {
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  const $payment = $('#payment');
-  const $paymentOption = $('#payment option');
-  $paymentOption.eq(0).hide();
-  $paymentOption.eq(1).prop('selected',true);
-  let $paymentSel = $("#payment option:selected").val();
-  
   $payment.on('change',function(event){
       if ($(event.target).val()=== 'Credit Card'){
           $('#credit-card').show();
@@ -208,8 +190,12 @@ $('input:checkbox').on('change', function() {
           $('#paypal').hide();
           $('#bitcoin').show();
       } 
-     $paymentSel = $(event.target);
   })
+
+  //Disables "Select Payment Method" in "Select" menu
+  $selectMethod.prop("disabled", true);
+
+  
 //This section prompts the user to enter their name, the name field cannot be blank
 $name.focusout(function(e) {
   if ($name.val() === "") {
