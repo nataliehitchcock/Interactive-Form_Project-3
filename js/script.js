@@ -49,11 +49,12 @@ $tshirtColor.hide();
  $paypal.hide();
  $bitcoin.hide();
 
-// Text field that will be revealed when the "other" option is selected from the "Job Role" drop down menu.
-$jobTitle.change( () => {
-  const option = $jobTitle.find(':selected').text();
-  if (option === 'Other') {
-      $otherJobTitle.show();
+// Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
+$($jobTitle).change(function() {
+  if ($jobTitle.val() === "other") {
+    $otherJobTitle.show();
+    } else {
+    $otherJobTitle.hide();
   }
 });
 
