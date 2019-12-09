@@ -40,7 +40,7 @@ let isCvvValid = false;
 
 
 // Hides the "other" job text field upon load
-$(‘otherJobTitle’).hide 
+$(otherJobTitle).hide 
 // Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
 $('#userTitle').change(function(){
   const value = $(this).val();
@@ -64,30 +64,32 @@ $shirtColor.hide();
 // If the user selects "Theme - JS Puns" then the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."
 // If the user selects "Theme - I ♥ JS" then the color menu should only display "Tomato," "Steel Blue," and "Dim Grey."
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
-$($shirtDesign).change(function() {
-  if ($shirtDesign.val() === "js puns") {
-    $shirtColor.show();
-    $('#color option[value="cornflowerblue"]').show();
-    $('#color option[value="darkslategrey"]').show();
-    $('#color option[value="gold"]').show();
-    $('#color option[value="tomato"]').hide();
-    $('#color option[value="steelblue"]').hide();
-    $('#color option[value="dimgrey"]').hide();
-  } else if ($shirtDesign.val() === "heart js") {
-    $shirtColor.show();
-    $('#color option[value="tomato"]').show();
-    $('#color option[value="steelblue"]').show();
-    $('#color option[value="dimgrey"]').show();
-    $('#color option[value="cornflowerblue"]').hide();
-    $('#color option[value="darkslategrey"]').hide();
-    $('#color option[value="gold"]').hide();
+
+// Hide 'select theme' in design menu
+const shirtColor = $('#colors-js-puns');
+const shirtDesign = $('#design');
+const designSelectOptions = $('#design option');
+
+// Change default color dropdown option//Hide all others
+const colorSelect = $('#color');
+const colorSelectOptions = $('#color option');
+const colorPlaceholder = $("<option value='choosetheme' selected='selected'>Please select a T-shirt design</option>");
+colorSelect.prepend(colorPlaceholder);
+colorSelect.children().hide();
+
+// Change color dropdown options when design is chosen
+shirtDesign.on('change', ({target}) => {
+  $('#colors-js-puns').show();
+  colorPlaceholder.remove();
+  if ($(target).val() === 'js puns') {
+    colorSelectOptions.eq(0).prop('selected', true);
+    $('#color option:gt(2)') && $('#color option:lt(6)').hide();
+    $('#color option:gt(0)') && $('#color option:lt(3)').show();
+  } else {
+    colorSelectOptions.eq(3).prop('selected', true);
+    $('#color option:gt(2)') && $('#color option:lt(6)').show();
+    $('#color option:gt(0)') && $('#color option:lt(3)').hide();
   }
-});
-
-
-// Disables the "Select Theme" option in the select menu
-$(function() {
-    $selectTheme.prop("disabled", true);
 });
 
 
