@@ -45,14 +45,15 @@ $otherJobTitle.hide();
 $tshirtColor.hide();
  $paypal.hide();
  $bitcoin.hide();
+ 
 // Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
-$($jobTitle).change(function() {
-    if ($jobTitle.val() === "other") {
-      $otherJobTitle.show();
-      } else {
-      $otherJobTitle.hide();
-    }
-  });
+$(jobTitle).change(() => {
+  if (jobTitle.val().toLowerCase() === 'other') {
+    $otherJobTitle.show();
+  } else {
+    otherJobTitle.hide();
+  }
+});
 // Disables "Select Job Role" in the select menu
 $(function() {
     $selectJob.prop("disabled", true);
@@ -146,6 +147,7 @@ $frameworks.change(function() {
       $jsLibs.prop('disabled', false);
     }
   });
+
 //Created a new div to display total
 $activities.append('<br><div class="totalDiv"><label name="total-due" class="totalCost">Total: </label></div>');
 $activities.append('<br><div class="error"><font color="#FF0000">Please select an activity.</div>');
