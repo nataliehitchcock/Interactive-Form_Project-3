@@ -13,7 +13,6 @@
       <span>Register for</span>
       <h1>Full Stack Conf</h1>
     </header>
-
     <form action="index.html" method="post">
               
       <fieldset>         
@@ -21,7 +20,6 @@
         
         <label for="name">Name:</label>
         <input type="text" id="name" name="user-name" required>
-
         
         <label for="mail">Email:</label>
         <input type="email" id="mail" name="user-email" required>
@@ -43,23 +41,22 @@
         
         <div>
           <label for="size">Size:</label>
-          <select id="size" name="user-size" >
+          <select id="size" name="user-size">
             <option value="small">S</option>
             <option value="medium" selected>M</option>
             <option value="large">L</option>
             <option value="extra large">XL</option>
           </select>
         </div>
-
         <div>
           <label for="design">Design:</label>
           <select id="design" name="user-design">
+            <option>Select Theme</option>
             <option>Please Select a T-Shirt Theme</option>
             <option value="js puns">Theme - JS Puns</option>
             <option value="heart js">Theme - I &#9829; JS</option>
           </select>
         </div>
-
         <div id="colors-js-puns" class="">
           <label for="color">Color:</label>
           <select id="color">
@@ -72,7 +69,6 @@
           </select>
         </div>                
       </fieldset>
-
       <fieldset class="activities">
         <legend>Register for Activities</legend>
         <label>
@@ -106,34 +102,28 @@
       </fieldset>
       <fieldset>
         <legend>Payment Info</legend>
-
         <label for="payment">I'm going to pay with:</label>
-        <select id="payment" name="user-payment" required>
+        <select id="payment" name="user-payment">
           <option value="select method">Select Payment Method</option>
           <option value="Credit Card">Credit Card</option>
           <option value="PayPal">PayPal</option>
           <option value="Bitcoin">Bitcoin</option>
         </select>
-
         <div id="credit-card" class="credit-card">
-
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
         	  <input id="cc-num" name="user-cc-num" type="text" required>
           </div>
-
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
             <input id="zip" name="user-zip" type="text" required> 
           </div>
-
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
             <input id="cvv" name="user-cvv" type="text" required> 
           </div>
-
           <label for="exp-month">Expiration Date:</label>
-          <select id="exp-month" name="user-exp-month" required>
+          <select id="exp-month" name="user-exp-month">
             <option value="1">1 - January</option>
             <option value="2">2 - February</option>
             <option value="3">3 - March</option>
@@ -148,7 +138,7 @@
             <option value="12">12 - December</option>          		          
           </select>
           <label for="exp-year">Expiration Year:</label>
-          <select id="exp-year" name="user-exp-year" required>
+          <select id="exp-year" name="user-exp-year">
             <option value="2016">2019</option>
             <option value="2017">2020</option>
             <option value="2018">2021</option>
@@ -156,21 +146,17 @@
             <option value="2020">2023</option>        		          
           </select> 	                  	         
         </div>
-
         <div id="paypal" class="paypal">
         	<p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div> 
-
         <div id="bitcoin" class="bitcoin">
         	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
         </div>                  
-
       </fieldset>        
         
       <button type="submit">Register</button>
       
     </form>
-
   </div>
   <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
