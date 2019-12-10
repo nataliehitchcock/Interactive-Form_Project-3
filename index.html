@@ -13,16 +13,17 @@
       <span>Register for</span>
       <h1>Full Stack Conf</h1>
     </header>
+
     <form action="index.html" method="post">
               
       <fieldset>         
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
-        <input type="text" id="name" name="user-name" required>
+        <input type="text" id="name" name="user-name">
         
         <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user-email" required>
+        <input type="email" id="mail" name="user-email">
         
         <label for="title">Job Role</label>
         <select id="title" name="user-title">
@@ -32,8 +33,8 @@
           <option value="designer">Designer</option>          
           <option value="student">Student</option>
           <option value="other">Other</option>  
-        </select>  
-        <input type="text" id="other-title" name="user_other_jobtitle" placeholder="Your Job Role" required></input>         
+        </select> 
+        <input type="text" id="other-title" name="user_other_jobtitle" placeholder="Your Job Role">            
       </fieldset>
       
       <fieldset class="shirt">
@@ -48,15 +49,17 @@
             <option value="extra large">XL</option>
           </select>
         </div>
+
         <div>
           <label for="design">Design:</label>
           <select id="design" name="user-design">
             <option>Select Theme</option>
-            <option>Please Select a T-Shirt Theme</option>
+            <option>Please Select a T-shirt Theme</option>
             <option value="js puns">Theme - JS Puns</option>
             <option value="heart js">Theme - I &#9829; JS</option>
           </select>
         </div>
+
         <div id="colors-js-puns" class="">
           <label for="color">Color:</label>
           <select id="color">
@@ -69,6 +72,7 @@
           </select>
         </div>                
       </fieldset>
+
       <fieldset class="activities">
         <legend>Register for Activities</legend>
         <label>
@@ -102,26 +106,32 @@
       </fieldset>
       <fieldset>
         <legend>Payment Info</legend>
+
         <label for="payment">I'm going to pay with:</label>
         <select id="payment" name="user-payment">
           <option value="select method">Select Payment Method</option>
-          <option value="Credit Card">Credit Card</option>
-          <option value="PayPal">PayPal</option>
-          <option value="Bitcoin">Bitcoin</option>
+          <option value="credit card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="bitcoin">Bitcoin</option>
         </select>
+
         <div id="credit-card" class="credit-card">
+
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user-cc-num" type="text" required>
+        	  <input id="cc-num" name="user-cc-num" type="text">
           </div>
+
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
-            <input id="zip" name="user-zip" type="text" required> 
+            <input id="zip" name="user-zip" type="text"> 
           </div>
+
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
-            <input id="cvv" name="user-cvv" type="text" required> 
+            <input id="cvv" name="user-cvv" type="text"> 
           </div>
+
           <label for="exp-month">Expiration Date:</label>
           <select id="exp-month" name="user-exp-month">
             <option value="1">1 - January</option>
@@ -146,17 +156,21 @@
             <option value="2020">2023</option>        		          
           </select> 	                  	         
         </div>
+
         <div id="paypal" class="paypal">
         	<p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div> 
+
         <div id="bitcoin" class="bitcoin">
         	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
         </div>                  
+
       </fieldset>        
         
       <button type="submit">Register</button>
       
     </form>
+
   </div>
   <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
