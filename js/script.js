@@ -178,21 +178,23 @@ console.log($total);
   $paymentOptions.eq(1).prop('selected',true);
   let $paymentSel = $("#payment option:selected").val();
   $payment.on('change',function(event){
-      if ($(event.target).val()=== 'Credit Card'){
-          $('#credit-card').show();
-          $('#paypal').hide();
-          $('#bitcoin').hide();
-      } else if ($(event.target).val()=== 'PayPal'){
-          $('#credit-card').hide();
-          $('#paypal').show();
-          $('#bitcoin').hide();
-      } else {
-          $('#credit-card').hide();
-          $('#paypal').hide();
-          $('#bitcoin').show();
-      }
-     $paymentSel = $(event.target);
-  })
+    if ($(event.target).val()=== 'Credit Card'){
+        $('#credit-card').show();
+        $('#paypal').hide();
+        $('#bitcoin').hide();
+    } else if ($(event.target).val()=== 'PayPal'){
+        ccCalled = false;
+        $('#credit-card').hide();
+        $('#paypal').show();
+        $('#bitcoin').hide();
+    } else {
+        ccCalled = false;
+        $('#credit-card').hide();
+        $('#paypal').hide();
+        $('#bitcoin').show();
+    }
+   $paymentSel = $(event.target).val();
+})
   //Disables "Select Payment Method" in "Select" menu
   $(function() {
     $selectMethod.prop("disabled", true);
