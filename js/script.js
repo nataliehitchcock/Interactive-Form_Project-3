@@ -93,9 +93,9 @@ console.log("I ♥ JS Clicked");
   }
 });
 
-$(function() {
-    $selectTheme.prop("disabled", true);
-});
+//Disables "Select Theme" from T-shirt menu
+$selectTheme.prop("disabled", true);
+
 
 //Register for Activities Section//
 
