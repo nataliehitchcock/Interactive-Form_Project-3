@@ -171,7 +171,7 @@ console.log($total);
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  //Credit for this section is given to both Megan Katherine O'Brien for suggesting the event listener 
+  //Credit for this section is given to both Megan Katherine O'Brien for suggesting the event listener and Christine Treacy for helping to format the code.
   const $payment = $('#payment');
   const $paymentOptions = $('#payment option');
   $paymentOptions.eq(0).hide();
@@ -179,6 +179,7 @@ console.log($total);
   let $paymentSel = $("#payment option:selected").val();
   
   $payment.on('change',function(event){
+    console.log($(event.target).val());
       if ($(event.target).val()=== 'Credit Card'){
           $('#credit-card').show();
           $('#paypal').hide();
