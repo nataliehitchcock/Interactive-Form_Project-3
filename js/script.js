@@ -171,30 +171,23 @@ console.log($total);
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  //Credit for this section is given to both Megan Katherine O'Brien for suggesting the event listener and Christine Treacy for helping me with the code itself.
-  const $payment = $('#payment');
-  const $paymentOptions = $('#payment option');
-  $paymentOptions.eq(0).hide();
-  $paymentOptions.eq(1).prop('selected',true);
-  let $paymentSel = $("#payment option:selected").val();
-  $payment.on('change',function(event){
-    if ($(event.target).val()=== 'Credit Card'){
-        $('#credit-card').show();
-        $('#paypal').hide();
-        $('#bitcoin').hide();
-    } else if ($(event.target).val()=== 'PayPal'){
-        ccCalled = false;
-        $('#credit-card').hide();
-        $('#paypal').show();
-        $('#bitcoin').hide();
-    } else {
-        ccCalled = false;
-        $('#credit-card').hide();
-        $('#paypal').hide();
-        $('#bitcoin').show();
+  //Credit for this section is given to both Megan Katherine O'Brien for suggesting the event listener 
+  paymentMethod.addEventListener('change', () => {
+    if (paypal.selected) {
+      creditOption.style.display = 'none';
+      paypal.style.display = 'block';
+      bitcoin.style.display = 'none';
+    } else if (bitcoin.selected) {
+      creditOption.style.display = 'none';
+      paypal.style.display = 'none';
+      bitcoin.style.display = 'block';
+    } else if (creditCard.selected) {
+      creditOption.style.display = 'block';
+      paypal.style.display = 'none';
+      bitcoin.style.display = 'none';
     }
-   $paymentSel = $(event.target).val();
-})
+  });
+
   //Disables "Select Payment Method" in "Select" menu
   $(function() {
     $selectMethod.prop("disabled", true);
