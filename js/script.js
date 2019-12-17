@@ -177,8 +177,9 @@ console.log($total);
   $paymentOptions.eq(0).hide();
   $paymentOptions.eq(1).prop('selected',true);
   let $paymentSel = $("#payment option:selected").val();
-  ​
+  
   $payment.on('change',function(event){
+    console.log($(event.target).val());
       if ($(event.target).val()=== 'Credit Card'){
           $('#credit-card').show();
           $('#paypal').hide();
