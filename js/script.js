@@ -171,29 +171,27 @@ console.log($total);
   $paymentOption[0].selectedIndex = 1;
 
   //This displays payment sections based on payment option chosen in "Select" menu
-  //Credit for this section is given to both Megan Katherine O'Brien for suggesting the event listener and Christine Treacy for helping to format the code.
-  const $payment = $('#payment');
-  const $paymentOptions = $('#payment option');
-  $paymentOptions.eq(0).hide();
-  $paymentOptions.eq(1).prop('selected',true);
-  let $paymentSel = $("#payment option:selected").val();
-  $payment.on('change',function(event){
-    console.log($(event.target).val());
-      if ($(event.target).val()=== 'Credit Card'){
-          $('#credit-card').show();
-          $('#paypal').hide();
-          $('#bitcoin').hide();
-      } else if ($(event.target).val()=== 'PayPal'){
-          $('#credit-card').hide();
-          $('#paypal').show();
-          $('#bitcoin').hide();
+  //Credit for this section is given to both Megan Katherine O'Brien and Averi Johnson for the assistance in getting this working.
+  $('#payment').change(function() {
+    let value = $(this).val();
+    if (value == 'credit card') {
+      $('.credit-card').show();
+      $('.paypal').hide();
+      $('.bitcoin').hide();
+    } else {
+      if (value == 'paypal') {
+        $('.paypal').show();
+        $('.credit-card').hide();
+        $('.bitcoin').hide();
       } else {
-          $('#credit-card').hide();
-          $('#paypal').hide();
-          $('#bitcoin').show();
+        if (value == 'bitcoin') {
+          $('.bitcoin').show();
+          $('.credit-card').hide();
+          $('.paypal').hide();
+        }
       }
-     $paymentSel = $(event.target);
-  })
+    }
+  });
   
   //Disables "Select Payment Method" in "Select" menu
   $(function() {
